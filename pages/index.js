@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { OpButton } from "@/atoms";
 
 export default function Home() {
   return (
@@ -11,7 +12,15 @@ export default function Home() {
       </Head>
       <main>
         <h1>Page Setup</h1>
+        <OpButton variant="contained">Microsoft 1</OpButton>
+        <OpButton variant="secondary">Microsoft 2</OpButton>
       </main>
     </>
   );
 }
+
+/**
+ *
+ * smaller - atom -> button , radio
+ *
+ */
