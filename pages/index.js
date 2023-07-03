@@ -12,8 +12,8 @@ export default function Home() {
       </Head>
       <main>
         <h1>Page Setup</h1>
-        <OpButton variant="contained">Microsoft 1</OpButton>
-        <OpButton variant="outlined">Microsoft 2</OpButton>
+        <OpButton variant="contained" mRight="10px">Microsoft 1</OpButton>
+        <OpButton variant="outlined" mRight="100px">Microsoft 2</OpButton>
       </main>
     </>
   );
