@@ -1,3 +1,4 @@
+import { LoadingButton } from "@mui/lab";
 import { Button } from "@mui/material";
 import { styled } from "@mui/system";
 
@@ -11,23 +12,36 @@ const getColorForVariant = (variant) => {
   if (variant === "outlined") return "#242424";
 };
 
-// Styled button
-export const StyledButton = styled(Button)(
-  ({ theme, variant, mRight = "0px" }) => ({
-    textTransform: "inherit",
-    fontWeight: 600,
-    background: getVariant(variant),
-    color: getColorForVariant(variant),
-    boxShadow: "none",
-    borderRadius: 4,
-    marginRight: mRight,
-    border:
-      variant === "outlined" ? "1px solid #D1D1D1" : "1px solid transparent",
+// Styled button (default)
+export const StyledButton = styled(Button)(({ variant, mright = "0px" }) => ({
+  textTransform: "inherit",
+  fontWeight: 600,
+  background: getVariant(variant),
+  color: getColorForVariant(variant),
+  boxShadow: "none",
+  borderRadius: 4,
+  marginRight: mright,
+  border:
+    variant === "outlined" ? "1px solid #D1D1D1" : "1px solid transparent",
+  transition: "transform 200ms linear",
 
-    "&:hover": {
-      boxShadow: "none",
-      background: variant === "contained" ? "#115EA3" : "transparent",
-      border: variant === "outlined" && "1px solid #242424",
-    },
+  "&:hover": {
+    boxShadow: "none",
+    background: variant === "contained" ? "#0F6CBD" : "transparent",
+    border: variant === "outlined" && "1px solid #D1D1D1",
+  },
+
+  "&.active": {
+    transform: "scale(0.8)",
+  },
+}));
+
+// Styled button (Loading)
+export const OpLoadingButton = styled(LoadingButton)(
+  ({ width, mright = "0px" }) => ({
+    padding: "1.15rem 0",
+    width: width,
+    borderRadius: 4,
+    marginRight: mright,
   })
 );
