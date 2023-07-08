@@ -2,8 +2,38 @@
   --brand-background: #0F6CBD;
 }
 
-body {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.wrapper{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E4E4E4D4;
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 30%;
+  background-color: white;
+}
+
+.main-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 70%;
+  width: 70%;
+}
+
+.button-container{
+  text-align: center;
 }
