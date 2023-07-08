@@ -17,7 +17,13 @@ const Documents = () => {
       <OpButton variant="contained" mright="10px" event={handleLog}>
         Microsoft 1
       </OpButton>
-      <OpButton variant="outlined" mright="10px" event={handleLog}>
+      <OpButton
+        variant="outlined"
+        mright="10px"
+        event={handleLog}
+        height="50px"
+        width="500px"
+      >
         Microsoft 2
       </OpButton>
 
@@ -25,6 +31,16 @@ const Documents = () => {
       <ul>
         <li>
           <strong>variant</strong> - "contained", "outlined" <br />
+          <strong>type</strong> - string
+        </li>
+        <br />
+        <li>
+          <strong>Height</strong> - "px", "%", "rem" <br />
+          <strong>type</strong> - string
+        </li>
+        <br />
+        <li>
+          <strong>Width</strong> - "px", "%", "rem" <br />
           <strong>type</strong> - string
         </li>
         <br />
@@ -45,13 +61,29 @@ const Documents = () => {
 
       <h1>Loading Button</h1>
 
-      <OpLoadingButton loading={true} variant="outlined" disabled />
+      <OpLoadingButton
+        loading={true}
+        variant="outlined"
+        height="50px"
+        width="500px"
+        disabled
+      />
 
       <p>Props: </p>
       <ul>
         <li>
           <strong>variant</strong> - "outlined"
           <br />
+          <strong>type</strong> - string
+        </li>
+        <br />
+        <li>
+          <strong>Height</strong> - "px", "%", "rem" <br />
+          <strong>type</strong> - string
+        </li>
+        <br />
+        <li>
+          <strong>Width</strong> - "px", "%", "rem" <br />
           <strong>type</strong> - string
         </li>
         <br />
