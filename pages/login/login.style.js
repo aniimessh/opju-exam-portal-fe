@@ -11,6 +11,6 @@ export const OpWrapper = styled(Container)({
 });
 
 export const OpLoginBox = styled(Box)({
-  maxWidth: "500px",
+  maxWidth: "450px",
   width: "95%",
 });
