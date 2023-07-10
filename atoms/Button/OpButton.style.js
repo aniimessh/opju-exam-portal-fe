@@ -46,7 +46,10 @@ export const OpLoadingButton = styled(LoadingButton)(
     padding: "1.15rem 0",
     width: width,
     height: height,
-    borderRadius: 4,
     marginRight: mright,
+    
+    "&.MuiButton-root": {
+      border: "none",
+    },
   })
 );
