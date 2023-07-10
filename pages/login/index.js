@@ -26,7 +26,7 @@ const Login = () => {
     <OpWrapper>
       <OpLoginBox>
         <Typography variant="h4" gutterBottom>
-          Sign In
+          Welcome
         </Typography>
         <Box mt={5}>
           <OpTextField
