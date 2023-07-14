@@ -13,21 +13,57 @@ import {
 
 import { OpLoginBox, OpWrapper } from "./login.style";
 import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   const [isLoading, setisLoading] = useState(false);
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+    role: "",
+  });
 
-  function handleAPICall() {
+  const handleLoginData = (event) => {
+    const { name, value, type } = event.target;
+    console.log(name, value);
+    setLoginData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  async function handleAPICall() {
     setisLoading(true);
-    setTimeout(() => setisLoading(false), 2000);
+    try{
+      const {email, password, role} = loginData
+      const { data } = await axios.post("http://localhost:8080/api/auth/login", {
+        email,
+        password,
+        role,
+      });
+      console.log("API DATA : ",data);
+      if(data.success && (data.user.role === "student")){
+        router.push("/student/dashboard")
+      }
+      if(data.success && (data.user.role === "faculty")){
+        router.push("/faculty/dashboard");
+      }
+    }catch(err) {
+      console.log(err.message);
+    }
+
+    setisLoading(false);
   }
 
   return (
     <OpWrapper>
       <OpLoginBox>
-        <Typography variant="h4"  >Welcome</Typography>
+        <Typography variant="h4">Welcome</Typography>
         <Box mt={5}>
           <OpTextField
+            value={loginData.email}
             label="Username"
             variant="outlined"
             event={() => {}}
@@ -35,8 +71,11 @@ const Login = () => {
             sx={{
               marginBottom: "2rem",
             }}
+            onChange={handleLoginData}
+            name="email"
           />
           <OpTextField
+            value={loginData.password}
             label="Password"
             variant="outlined"
             event={() => {}}
@@ -44,11 +83,14 @@ const Login = () => {
             sx={{
               marginBottom: "2rem",
             }}
+            name="password"
+            onChange={handleLoginData}
           />
           <FormControl
             sx={{
               marginBottom: "1rem",
             }}
+            onChange={handleLoginData}
           >
             <RadioGroup
               row
@@ -60,11 +102,17 @@ const Login = () => {
                 value="student"
                 control={<Radio />}
                 label="Student"
+                name="role"
+                checked={loginData.role === "student"}
+                onChange={handleLoginData}
               />
               <FormControlLabel
                 value="faculty"
                 control={<Radio />}
                 label="Faculty"
+                name="role"
+                checked={loginData.role === "faculty"}
+                onChange={handleLoginData}
               />
             </RadioGroup>
           </FormControl>
