@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 import { OpLoginBox, OpWrapper } from "./login.style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -27,7 +27,6 @@ const Login = () => {
 
   const handleLoginData = (event) => {
     const { name, value, type } = event.target;
-    console.log(name, value);
     setLoginData((prev) => ({
       ...prev,
       [name]: value,
@@ -36,26 +35,41 @@ const Login = () => {
 
   async function handleAPICall() {
     setisLoading(true);
-    try{
-      const {email, password, role} = loginData
-      const { data } = await axios.post("http://localhost:8080/api/auth/login", {
-        email,
-        password,
-        role,
-      });
-      console.log("API DATA : ",data);
-      if(data.success && (data.user.role === "student")){
-        router.push("/student/dashboard")
-      }
-      if(data.success && (data.user.role === "faculty")){
+    try {
+      const { email, password, role } = loginData;
+      const { data } = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          email,
+          password,
+          role,
+        }
+      );
+      window.localStorage.setItem("token", data.token);
+      window.localStorage.setItem("role", data.user.role);
+      const token = window.localStorage.getItem("token", data.token);
+      if (token && data.user.role === "student") {
+        router.push("/student/dashboard");
+      } else if (token && data.user.role === "faculty") {
         router.push("/faculty/dashboard");
       }
-    }catch(err) {
+    } catch (err) {
       console.log(err.message);
     }
-
     setisLoading(false);
   }
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    const role = window.localStorage.getItem("role");
+
+    if (token && (role==="student")) {
+      router.push("/student/dashboard");
+    }
+    if (token && (role==="faculty")) {
+      router.push("/faculty/dashboard");
+    }
+  }, []);
 
   return (
     <OpWrapper>
