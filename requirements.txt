@@ -1,0 +1,5 @@
+Route 
+
+    - / - Dashboard page
+
+    - /login - Login page
