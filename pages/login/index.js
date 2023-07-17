@@ -15,8 +15,11 @@ import { OpLoginBox, OpWrapper } from "./login.style";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { login, logout } from "@/store/slice/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [isLoading, setisLoading] = useState(false);
   const [loginData, setLoginData] = useState({
@@ -26,18 +29,18 @@ const Login = () => {
   });
 
   const handleLoginData = (event) => {
-    const { name, value, type } = event.target;
+    const { name, value } = event.target;
     setLoginData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  async function handleAPICall() {
+  async function handleLoginApi() {
     setisLoading(true);
     try {
       const { email, password, role } = loginData;
-      const { data } = await axios.post(
+      const { data: {token, user} } = await axios.post(
         "http://localhost:8080/api/auth/login",
         {
           email,
@@ -45,14 +48,10 @@ const Login = () => {
           role,
         }
       );
-      window.localStorage.setItem("token", data.token);
-      window.localStorage.setItem("role", data.user.role);
-      const token = window.localStorage.getItem("token", data.token);
-      if (token && data.user.role === "student") {
-        router.push("/student/dashboard");
-      } else if (token && data.user.role === "faculty") {
-        router.push("/faculty/dashboard");
-      }
+      dispatch(login({
+        token,
+        role: user.role
+      }))
     } catch (err) {
       console.log(err.message);
     }
@@ -64,7 +63,7 @@ const Login = () => {
     const role = window.localStorage.getItem("role");
 
     if (token && (role==="student")) {
-      router.push("/student/dashboard");
+      router.push("/");
     }
     if (token && (role==="faculty")) {
       router.push("/faculty/dashboard");
@@ -135,7 +134,7 @@ const Login = () => {
           <OpButton
             variant="contained"
             mright="10px"
-            event={handleAPICall}
+            event={handleLoginApi}
             width="100%"
             height="50px"
           >
