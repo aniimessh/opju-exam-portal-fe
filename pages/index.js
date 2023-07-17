@@ -13,9 +13,3 @@ export default function Home() {
     </>
   );
 }
-
-/**
- *
- * smaller - atom -> button , radio
- *
- */
