@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
 import CustomTheme from "@/theme";
 import { ThemeProvider } from "@mui/material";
 
